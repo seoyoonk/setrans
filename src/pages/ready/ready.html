@@ -1,0 +1,31 @@
+<!--
+  Generated template for the ReadyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-toolbar color="main" >
+
+    <ion-title  >배송준비(순번조정) </ion-title>
+    <ion-buttons end>
+        <button ion-button icon-left color="dark">
+            <ion-icon name="checkmark"></ion-icon>
+        순서저장
+      </button>
+    </ion-buttons>  
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content >
+  <ion-list reorder="true">
+    <ion-item *ngFor=" let item of readyList; let i = index">
+      <p>{{ item.zip }} {{ item.receiver }}</p>
+      <h2> {{ item.addr }}</h2>
+    </ion-item>
+  </ion-list>  
+  
+</ion-content>
