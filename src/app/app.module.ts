@@ -10,6 +10,9 @@ import { LoadPage } from '../pages/load/load';
 import { ReadyPage } from '../pages/ready/ready';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DetailPage } from '../pages/detail/detail';
+import { RestProvider } from '../providers/rest';
+import { HttpModule } from '@angular/http';
+import { BackgroundGeolocation} from '@ionic-native/background-geolocation';
 @NgModule({
   declarations: [
     MyApp,
@@ -17,6 +20,7 @@ import { DetailPage } from '../pages/detail/detail';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -27,6 +31,8 @@ import { DetailPage } from '../pages/detail/detail';
   providers: [
     StatusBar,
     SplashScreen,
+    RestProvider,
+    BackgroundGeolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
