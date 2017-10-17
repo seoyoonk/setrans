@@ -64,6 +64,10 @@ export class MyApp {
         });
         this.getPhoneNumber();
       }
+      else{
+        this.rootPage = TabsPage;
+        this.splashScreen.hide();
+      }
 
       
     });
