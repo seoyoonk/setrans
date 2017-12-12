@@ -10,10 +10,10 @@ import { RestProvider } from '../../providers/rest';
 
 @IonicPage()
 @Component({
-  selector: 'page-load',
-  templateUrl: 'load.html',
+  selector: 'page-load-cancel',
+  templateUrl: 'load_cancel.html',
 })
-export class LoadPage {
+export class LoadCancelPage {
 
   loadList = [{DISPATCH_NOTE_NO:11111, ITEM_NM:'맛난핫바',zip:'12901', addr:'서울시 강남구 논현로 132길 6 미래빌딩5층 굿스플로', CONSIGNEE_NM:'홍길동'},
   {DISPATCH_NOTE_NO:12222, ITEM_NM:'장남감',zip:'13901', addr:'서울시 금천구 가산동 대성 디폴리스', CONSIGNEE_NM:'이순신'},
@@ -23,7 +23,6 @@ export class LoadPage {
   }
 
   ionViewDidLoad() {
-    
     this.getList();
   }
   getList() {
@@ -33,7 +32,7 @@ export class LoadPage {
            this.loadList = res.list;
            
          },
-         error => alert( error));
+         error => alert(error));
   }
   delItem(idx)
   {

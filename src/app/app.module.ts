@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { FinishPage } from '../pages/finish/finish';
 import { LoadPage } from '../pages/load/load';
+import { LoadCancelPage } from '../pages/load_cancel/load_cancel';
 import { ReadyPage } from '../pages/ready/ready';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DetailPage } from '../pages/detail/detail';
@@ -16,7 +17,7 @@ import { BackgroundGeolocation} from '@ionic-native/background-geolocation';
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage, FinishPage, ReadyPage, LoadPage,DetailPage
+    TabsPage, FinishPage, ReadyPage, LoadPage, LoadCancelPage, DetailPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,7 @@ import { BackgroundGeolocation} from '@ionic-native/background-geolocation';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage, FinishPage, ReadyPage, LoadPage,DetailPage
+    TabsPage, FinishPage, ReadyPage, LoadPage, LoadCancelPage, DetailPage
   ],
   providers: [
     StatusBar,

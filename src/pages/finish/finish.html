@@ -24,7 +24,7 @@
     
      <ion-item *ngFor=" let item of finishList; let i = index" (click)="goDetail(item)">
        
-      <p><span style="color:silver">{{i+1}}.</span> {{ item.zip }} {{ item.receiver }}</p>
+      <p><span class="no">{{i+1}}.</span> {{ item.zip }} {{ item.receiver }}</p>
       <h2> {{ item.addr }}</h2>
       
       

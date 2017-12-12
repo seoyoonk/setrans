@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar  color="main">
-    <ion-title >상차확인</ion-title>
+    <ion-title >상차취소</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -19,12 +19,14 @@
         <ion-item>
             <ion-input type="text" placeholder="송장번호"></ion-input>
             <button ion-button item-end> 
-                상차
+                취소
             </button>      
         </ion-item>
         
          <ion-item *ngFor=" let item of loadList; let i = index">
-              
+          <button ion-button icon-only clear color="danger"  item-start (click)="delItem(i)"> 
+              <ion-icon name="close-circle" icon-left></ion-icon>
+          </button>    
           <p><span class="no">{{i+1}}.</span> {{ item.DISPATCH_NOTE_NO }} {{ item.CONSIGNEE_NM }}</p>
           <h2> {{ item.ITEM_NM }}</h2>
           

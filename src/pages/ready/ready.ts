@@ -25,5 +25,6 @@ export class ReadyPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReadyPage : ' + this.readyList);
   }
+  
 
 }
