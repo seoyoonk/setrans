@@ -94,8 +94,10 @@ export class MyApp {
         }
         else
         {
-          
-          setTimeout(this.getPhoneNumber(), 1000);
+          if(info.phoneCount>0)
+          {
+            setTimeout(this.getPhoneNumber(), 1000);
+          }
         }
       
     });

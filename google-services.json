@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1087850886978",
+    "firebase_url": "https://deliverymobile-bafd7.firebaseio.com",
+    "project_id": "deliverymobile-bafd7",
+    "storage_bucket": "deliverymobile-bafd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087850886978:android:5758d8055dabd2ab",
+        "android_client_info": {
+          "package_name": "com.sebang.delivery_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087850886978-22h3ckfsdkb2qho3nsijko2gi5sdb32m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-V6APUYjWicd1qLjs7KDN4oxCsFAiv5M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

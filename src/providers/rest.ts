@@ -29,13 +29,13 @@ export class RestProvider {
     
   }
   getDeliveryList(kubun : string) {
-    var response = this.http.get("http://192.168.0.17:8090/test/deliveryList.jsp").map(res => res.json());
+    let response = this.http.get("http://192.168.0.17:8090/test/deliveryList.jsp").map(res => res.json());
     return response;
   }
   sendLocation(lat : number, lng :number)
   {
-    var url : string = "http://192.168.0.17:8090/test/sendLocation.jsp?lat=" + lat + "&lng=" + lng;
-    var response = this.http.get(url).map(res => res.json());
+    let url : string = "http://192.168.0.17:8090/test/sendLocation.jsp?lat=" + lat + "&lng=" + lng;
+    let response = this.http.get(url).map(res => res.json());
     return response;
   }
 }
