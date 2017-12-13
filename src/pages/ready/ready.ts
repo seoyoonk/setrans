@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { RestProvider } from '../../providers/rest';
 /**
  * Generated class for the ReadyPage page.
  *
@@ -19,11 +19,20 @@ export class ReadyPage {
   {zip:'13901', addr:'서울시 금천구 가산동 대성 디폴리스', receiver:'이순신'},
   {zip:'14901', addr:'서울시 강남구 역삼동 세방빌딩 10층', receiver:'김철수'}
   ];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private rest: RestProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReadyPage : ' + this.readyList);
+    this.getList();
+  }
+  getList() {
+    this.rest.getReadyList()
+       .subscribe(
+         res => {
+           this.readyList = res.list;
+           
+         },
+         error => alert(error));
   }
   
 
