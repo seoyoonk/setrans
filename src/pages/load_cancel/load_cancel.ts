@@ -23,7 +23,7 @@ export class LoadCancelPage {
   }
 
   ionViewDidLoad() {
-    this.getList();
+    if(this.rest.userInfo.SHIPMENT_NO != '') this.getList();
   }
   getList() {
     this.rest.getReadyList()
