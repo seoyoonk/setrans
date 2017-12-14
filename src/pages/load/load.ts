@@ -31,7 +31,10 @@ export class LoadPage {
   insertDelivery(){
     this.rest.insertDelivery(this.delivery_no).subscribe(
       (res) => {
-        
+        this.getList();
+      },
+      (error) => {
+        alert( error)
       }
     )
   }
