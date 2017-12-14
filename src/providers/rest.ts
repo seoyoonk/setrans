@@ -94,4 +94,8 @@ export class RestProvider {
     let response = this.http.get(url).map(res => res.json());
     return response;
   }
+  insertDelivery(delivery_no:string) {
+    
+   return this.post("/api/ready_list", {delivery_no: delivery_no});
+  }
 }
