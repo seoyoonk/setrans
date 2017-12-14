@@ -14,6 +14,7 @@ import { RestProvider } from '../providers/rest';
 import { HttpModule } from '@angular/http';
 import { Sim } from '@ionic-native/sim';
 import { BackgroundGeolocation} from '@ionic-native/background-geolocation';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 @NgModule({
   declarations: [
     MyApp,
@@ -35,7 +36,7 @@ import { BackgroundGeolocation} from '@ionic-native/background-geolocation';
     RestProvider,
     BackgroundGeolocation,
     Nav, ToastController,
-    Sim,
+    Sim,BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
