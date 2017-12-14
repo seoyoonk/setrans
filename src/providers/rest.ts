@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http,Headers } from '@angular/http';
-
+import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 import 'rxjs/add/operator/map';
 
 /*
@@ -14,8 +14,41 @@ export class RestProvider {
   private apiUrl = 'http://211.51.22.71:8080';
   userInfo={OWNER:'00', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:''};
   prop = { gps_term: 100 };
-  constructor(public http: Http) {
+  cordova : boolean = false;
+  constructor(public http: Http, private backgroundGeolocation: BackgroundGeolocation) {
     console.log('Hello RestProvider Provider');
+  }
+  setCordova(cordova:boolean)
+  {
+    this.cordova = cordova;
+  }
+  isCordova()
+  {
+    return this.cordova;
+  }
+
+  //배송 시작시나 로그인 후 배송시작되었다면..
+  startGPS()
+  {
+    const config: BackgroundGeolocationConfig = {
+      desiredAccuracy: 0,
+      stationaryRadius: 20,
+      distanceFilter: 10,
+      interval : this.prop.gps_term * 1000,
+      debug: true, //  enable this hear sounds for background-geolocation life-cycle.
+      stopOnTerminate: true, // enable this to clear background location settings when the app terminates
+    };
+    this.backgroundGeolocation.configure(config).subscribe((location: BackgroundGeolocationResponse) => {
+      this.sendLocation(location.latitude, location.longitude).subscribe(
+        () => console.log(location) ,
+        (error) =>  alert( JSON.stringify(error) )
+      );
+    });
+    this.backgroundGeolocation.start();
+  }
+  stopGPS()
+  {
+    this.backgroundGeolocation.stop();
   }
   appStart(phone:string, fcm:string)
   {
