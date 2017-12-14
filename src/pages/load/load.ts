@@ -22,9 +22,18 @@ export class LoadPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
   }
 
+  delivery_no: string = "";
+
   ionViewDidLoad() {
     
     if(this.rest.userInfo.SHIPMENT_NO != '') this.getList();
+  }
+  insertDelivery(){
+    this.rest.insertDelivery(this.delivery_no).subscribe(
+      (res) => {
+        
+      }
+    )
   }
   getList() {
     this.rest.getReadyList()
