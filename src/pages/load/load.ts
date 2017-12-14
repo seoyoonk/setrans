@@ -43,6 +43,7 @@ export class LoadPage {
     }
   }
   insertDelivery(){
+    this.getBarCode();
     this.rest.insertDelivery(this.DISPATCH_NOTE_NO).subscribe(
       (res) => {
         this.getList();
