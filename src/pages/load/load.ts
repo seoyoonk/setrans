@@ -46,6 +46,7 @@ export class LoadPage {
     this.getBarCode();
     this.rest.insertDelivery(this.DISPATCH_NOTE_NO).subscribe(
       (res) => {
+        this.rest.userInfo.SHIPMENT_NO = res.out_SHIPMENT_NO
         this.getList();
       },
       (error) => {

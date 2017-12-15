@@ -18,7 +18,7 @@
       <ion-list>
         <ion-item>
             <ion-input type="text"  [(ngModel)]="DISPATCH_NOTE_NO" placeholder="송장번호" (focus)="getBarCode()"></ion-input>
-            <button ion-button item-end> 
+            <button ion-button item-end (click)="insertDelivery()"> 
                 상차
             </button>      
         </ion-item>
