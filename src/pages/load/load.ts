@@ -12,7 +12,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 @IonicPage()
 @Component({
   selector: 'page-load',
-  templateUrl: 'load.html',
+  templateUrl: 'load.html'
 })
 export class LoadPage {
 
