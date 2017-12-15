@@ -62,13 +62,21 @@ export class RestProvider {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         //headers.append('Content-Type', 'application/json');
-        if(this.userInfo.CAR_REGIST_NO != '')
+        if(this.userInfo.CAR_REGIST_NO != '' && this.userInfo.CAR_REGIST_NO != null)
         {
           param1.CAR_REGIST_NO= this.userInfo.CAR_REGIST_NO;
         }
-        if(this.userInfo.SHIPMENT_NO != '')
+        if(this.userInfo.SHIPMENT_NO != '' && this.userInfo.SHIPMENT_NO != null)
         {
           param1.SHIPMENT_NO=this.userInfo.SHIPMENT_NO;
+        }
+        if(this.userInfo.OWNER != '' && this.userInfo.OWNER != null)
+        {
+          param1.OWNER=this.userInfo.OWNER;
+        }
+        if(this.userInfo.DRIVER_TEL != '' && this.userInfo.DRIVER_TEL != null)
+        {
+          param1.DRIVER_TEL=this.userInfo.DRIVER_TEL;
         }
         console.log(param1);
         return this.http.post(this.apiUrl + url, param1, { headers: headers }).map(
@@ -94,8 +102,10 @@ export class RestProvider {
     let response = this.http.get(url).map(res => res.json());
     return response;
   }
-  insertDelivery(delivery_no:string) {
-    
-   return this.post("/api/ready_list", {delivery_no: delivery_no});
+  insertDelivery(DISPATCH_NOTE_NO:string) {
+   return this.post("/api/insert_delvery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
+  }
+  deleteDelivery(DISPATCH_NOTE_NO:string) {
+   return this.post("/api/delete_delvery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
   }
 }
