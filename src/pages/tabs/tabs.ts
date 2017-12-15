@@ -5,6 +5,8 @@ import { LoadPage } from '../load/load';
 import { LoadCancelPage } from '../load_cancel/load_cancel';
 import { ReadyPage } from '../ready/ready';
 
+import { RestProvider } from '../../providers/rest';
+
 @Component({
   templateUrl: 'tabs.html'
 })
@@ -15,7 +17,11 @@ export class TabsPage {
   tab3Root = FinishPage;
   tab4Root = LoadCancelPage;
 
-  constructor() {
+  constructor(public rest: RestProvider) {
 
+  }
+
+  ionViewDidLoad() {
+    this.rest.getReadyList();
   }
 }

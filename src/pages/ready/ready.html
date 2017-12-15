@@ -26,7 +26,7 @@
 
 <ion-content >
   <ion-list reorder="true">
-    <ion-item *ngFor=" let item of readyList; let i = index">
+    <ion-item *ngFor=" let item of rest.readyList; let i = index">
       <p>{{ item.zip }} {{ item.receiver }}</p>
       <h2> {{ item.addr }}</h2>
     </ion-item>

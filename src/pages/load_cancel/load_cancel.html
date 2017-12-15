@@ -17,13 +17,13 @@
     <ion-content >
       <ion-list>
         <ion-item>
-            <ion-input type="text" placeholder="송장번호" [(ngModel)]="DISPATCH_NOTE_NO"></ion-input>
+            <ion-input type="text" placeholder="송장번호" [(ngModel)]="DISPATCH_NOTE_NO" (focus)="getBarCode()"></ion-input>
             <button ion-button item-end (click)="deleteDelivery()"> 
                 취소
             </button>      
         </ion-item>
         
-         <ion-item *ngFor=" let item of loadList; let i = index">
+         <ion-item *ngFor=" let item of rest.readyList; let i = index">
           <button ion-button icon-only clear color="danger"  item-start (click)="delItem(i)"> 
               <ion-icon name="close-circle" icon-left></ion-icon>
           </button>    

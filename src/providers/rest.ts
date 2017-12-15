@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 export class RestProvider {
   private apiUrl = 'http://211.51.22.71:8080';
   userInfo={OWNER:'00', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:''};
+  readyList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:''} ];
   prop = { gps_term: 100 };
   cordova : boolean = false;
   constructor(public http: Http, private backgroundGeolocation: BackgroundGeolocation) {
@@ -94,7 +95,13 @@ export class RestProvider {
       }
   getReadyList() {
     
-   return this.post("/api/ready_list", {});
+   return this.post("/api/ready_list", {})
+   .subscribe(
+     res => {
+       this.readyList = res.list;
+       
+     },
+     error => alert(error));;
   }
   sendLocation(lat : number, lng :number)
   {
