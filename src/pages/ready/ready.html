@@ -14,7 +14,7 @@
           <ion-icon name="checkmark"></ion-icon>
               순서저장
       </button>
-      <button ion-button icon-left color="dark">
+      <button ion-button icon-left color="dark" (click)="startDelivery()">
         <ion-icon name="ios-send"></ion-icon>
             배송 출발
     </button>
@@ -27,8 +27,8 @@
 <ion-content >
   <ion-list reorder="true">
     <ion-item *ngFor=" let item of rest.readyList; let i = index">
-      <p><span class="no">{{i+1}}.</span> {{ item.DISPATCH_NOTE_NO }} {{ item.CONSIGNEE_NM }}</p>
-      <h2> {{ item.ITEM_NM }}</h2>
+      <p><span class="no">{{i+1}}.</span> {{ item.DESTINATION_ZIP_CD  }} {{ item.CONSIGNEE_NM }}</p>
+      <h2> {{ item.CONSIGNEE_ADDR1 }} {{ item.CONSIGNEE_ADDR2 }}</h2>
     </ion-item>
   </ion-list>  
   

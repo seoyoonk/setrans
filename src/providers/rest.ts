@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RestProvider {
   private apiUrl = 'http://211.51.22.71:8080';
-  userInfo={OWNER:'00', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:''};
+  userInfo={OWNER:'00', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:'', IS_ING:'N'};
   readyList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:''} ];
   prop = { gps_term: 100 };
   cordova : boolean = false;
@@ -105,9 +105,7 @@ export class RestProvider {
   }
   sendLocation(lat : number, lng :number)
   {
-    let url : string = "http://192.168.0.17:8090/test/sendLocation.jsp?lat=" + lat + "&lng=" + lng;
-    let response = this.http.get(url).map(res => res.json());
-    return response;
+    return this.post("/api/insert_location", {TRUCK_LAT:lat, TRUCK_LOT:lng  });
   }
   insertDelivery(DISPATCH_NOTE_NO:string) {
    return this.post("/api/insert_delvery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});

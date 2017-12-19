@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform , ToastController , Nav} from 'ionic-angular';
+import { Platform , ToastController , Nav, IonicApp} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -8,7 +8,7 @@ import { RestProvider } from '../providers/rest';
 import { Sim } from '@ionic-native/sim';
 
 
-//declare var FCMPlugin;
+declare var FCMPlugin;
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,7 +19,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   constructor(private platform: Platform, private toastCtrl:ToastController, statusBar: StatusBar, public splashScreen: SplashScreen,
-    private rest:RestProvider, private sim: Sim) {
+    private rest:RestProvider, private sim: Sim, private ionicApp: IonicApp) {
     
    
     
@@ -37,10 +37,10 @@ export class MyApp {
         this.sim.requestReadPermission();
         this.setBackButton();
       
-
-        this.getPhoneNumber();
-        //this.getFCMToken();
-        this.token = "";
+        this.mobile="00011112222";
+        //this.getPhoneNumber();
+        this.getFCMToken();
+        //this.token = "";
       }
       else{
         this.mobile="00011112222";
@@ -58,39 +58,43 @@ export class MyApp {
   {
     var lastTimeBackPress = 0;
     var timePeriodToExit  = 2000;
+
     this.platform.registerBackButtonAction(() => {
-      if (!this.nav.canGoBack()) {
-         //Double check to exit app
-         if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) 
-         {
-             this.platform.exitApp(); //Exit from app
-         } 
-         else 
-         {
-             let toast = this.toastCtrl.create({
-                 message:  'Press back again to exit App?',
-                 duration: 3000,
-                 position: 'bottom'
-             });
-             toast.present();
-             lastTimeBackPress = new Date().getTime();
-         }
-      } 
-      else 
+      let activePortal = this.ionicApp._modalPortal.getActive();
+      if(activePortal)
       {
-         // go to previous page
-         this.nav.pop();
+        activePortal.dismiss();
       }
-    });
+      else
+      {
+         if (!this.nav.canGoBack()) {
+            //Double check to exit app
+            if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
+                this.platform.exitApp(); //Exit from app
+            } else {
+                let toast = this.toastCtrl.create({
+                    message:  'Press back again to exit App?',
+                    duration: 3000,
+                    position: 'bottom'
+                });
+                toast.present();
+                lastTimeBackPress = new Date().getTime();
+            }
+        } else {
+            // go to previous page
+            this.nav.pop();
+        }
+      }
+    }  );
 
   }
-  /*
+  
   getFCMToken() {
     
-    alert('fcm');
+    
     if (typeof (FCMPlugin) !== "undefined") {
       FCMPlugin.getToken(token => {
-        
+    
         this.token = token;
         this.appStart();
       }
@@ -101,7 +105,7 @@ export class MyApp {
       
     }
   }
-  */
+  
   appStart()
   {
     if(this.mobile != null && this.token != null)
@@ -115,13 +119,26 @@ export class MyApp {
             }
             else
             {
-              this.rest.userInfo = data.user;
-              this.rest.prop = data.prop;
-              //alert(this.rest.userInfo.DRIVER_NM + "님, 오늘도 좋은 하루 되세요.");
-              this.rootPage = TabsPage;
-              if (this.platform.is('cordova')) {
-                
-                this.splashScreen.hide();
+              if(data.user  == null)
+              {
+                alert("기사님이 셋팅된 것이 없습니다.");
+                this.platform.exitApp();
+              }
+              else
+              {
+                this.rest.userInfo = data.user;
+                this.rest.prop = data.prop;
+                //alert(this.rest.userInfo.DRIVER_NM + "님, 오늘도 좋은 하루 되세요.");
+                this.rootPage = TabsPage;
+                alert('one');
+                if (this.platform.is('cordova')) {
+                  if(this.rest.userInfo.IS_ING =='Y')
+                  {
+                    this.rest.startGPS();
+                  }
+                  alert('2');
+                  this.splashScreen.hide();
+                }
               }
             }
         },
@@ -143,8 +160,11 @@ export class MyApp {
       (info) => {
         if(info.phoneNumber)
         {
-          
-          this.mobile = info.phoneNumber;
+          let phone: string = info.phoneNumber;
+          if (info.phoneNumber.startsWith("+82")) {
+            phone = "0" + info.phoneNumber.substring(3, 5) + info.phoneNumber.substring(5, info.phoneNumber.length - 4) + info.phoneNumber.substring(info.phoneNumber.length - 4, info.phoneNumber.length);
+          }
+          this.mobile = phone;
           this.appStart();
           
         }

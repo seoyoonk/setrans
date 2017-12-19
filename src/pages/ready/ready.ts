@@ -22,4 +22,8 @@ export class ReadyPage {
   }
   
 
+  startDelivery()
+  {
+    this.rest.startGPS();
+  }
 }
