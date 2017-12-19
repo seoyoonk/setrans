@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http,Headers } from '@angular/http';
+import { LoadingController } from 'ionic-angular';
 import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 import 'rxjs/add/operator/map';
 
@@ -12,11 +13,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RestProvider {
   private apiUrl = 'http://211.51.22.71:8080';
-  userInfo={OWNER:'00', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:'', IS_ING:'N'};
+  userInfo={OWNER:'00', PHONE_NO:'', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:'', IS_ING:'N'};
   readyList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:''} ];
   prop = { gps_term: 100 };
   cordova : boolean = false;
-  constructor(public http: Http, private backgroundGeolocation: BackgroundGeolocation) {
+  loading;
+  constructor(public http: Http, private backgroundGeolocation: BackgroundGeolocation, private loadingCtrl: LoadingController) {
     console.log('Hello RestProvider Provider');
   }
   setCordova(cordova:boolean)
@@ -26,6 +28,15 @@ export class RestProvider {
   isCordova()
   {
     return this.cordova;
+  }
+  showLoading(msg) {
+    this.loading = this.loadingCtrl.create({
+      content: msg
+    });
+    this.loading.present();
+  }
+  closeLoading() {
+    if (this.loading != null) this.loading.dismiss();
   }
 
   //배송 시작시나 로그인 후 배송시작되었다면..
@@ -78,6 +89,10 @@ export class RestProvider {
         if(this.userInfo.DRIVER_TEL != '' && this.userInfo.DRIVER_TEL != null)
         {
           param1.DRIVER_TEL=this.userInfo.DRIVER_TEL;
+        }
+        if(this.userInfo.PHONE_NO != '' && this.userInfo.PHONE_NO != null)
+        {
+          param1.PHONE_NO=this.userInfo.PHONE_NO;
         }
         console.log(param1);
         return this.http.post(this.apiUrl + url, param1, { headers: headers }).map(

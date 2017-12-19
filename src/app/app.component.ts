@@ -1,14 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform , ToastController , Nav, IonicApp} from 'ionic-angular';
+import { Platform , ToastController , Nav, IonicApp, App} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { RestProvider } from '../providers/rest';
 import { Sim } from '@ionic-native/sim';
+import { FCM } from '@ionic-native/fcm'
 
-
-declare var FCMPlugin;
+//declare var FCMPlugin;
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,7 +19,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   constructor(private platform: Platform, private toastCtrl:ToastController, statusBar: StatusBar, public splashScreen: SplashScreen,
-    private rest:RestProvider, private sim: Sim, private ionicApp: IonicApp) {
+    private rest:RestProvider, private sim: Sim, private app: App, private ionicApp: IonicApp, private fcm : FCM) {
     
    
     
@@ -41,6 +41,7 @@ export class MyApp {
         //this.getPhoneNumber();
         this.getFCMToken();
         //this.token = "";
+        this.appStart();
       }
       else{
         this.mobile="00011112222";
@@ -90,20 +91,10 @@ export class MyApp {
   }
   
   getFCMToken() {
-    
-    
-    if (typeof (FCMPlugin) !== "undefined") {
-      FCMPlugin.getToken(token => {
-    
-        this.token = token;
-        this.appStart();
-      }
-      );
-    }
-    else {
-      alert("get push token fail");
-      
-    }
+    this.fcm.getToken().then(token=>{     
+      this.token = token;
+      this.appStart();
+    })
   }
   
   appStart()
@@ -129,15 +120,24 @@ export class MyApp {
                 this.rest.userInfo = data.user;
                 this.rest.prop = data.prop;
                 //alert(this.rest.userInfo.DRIVER_NM + "님, 오늘도 좋은 하루 되세요.");
-                this.rootPage = TabsPage;
-                alert('one');
+              
+               
                 if (this.platform.is('cordova')) {
                   if(this.rest.userInfo.IS_ING =='Y')
                   {
                     this.rest.startGPS();
                   }
-                  alert('2');
+               
                   this.splashScreen.hide();
+                  this.app.getRootNav().setRoot(TabsPage).then(data => {
+                   
+                  }, (error) => {
+                    
+                  })
+                }
+                else
+                {
+                  this.rootPage = TabsPage;
                 }
               }
             }

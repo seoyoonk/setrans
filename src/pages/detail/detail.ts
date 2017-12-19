@@ -27,11 +27,6 @@ export class DetailPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
-  goTMap(item)
-  {
-    let lat="37.473105";
-    let lng="126.868409";
-    window.open("tmap://route?goalx=" + lat + "&goaly=" + lng + "&goalname=" + item.addr , '_system');
-  }
+ 
 
 }

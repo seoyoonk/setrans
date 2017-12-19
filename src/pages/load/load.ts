@@ -36,6 +36,7 @@ export class LoadPage {
     }
   }
   insertDelivery(){
+    this.rest.showLoading("요청중입니다.");
     this.rest.insertDelivery(this.DISPATCH_NOTE_NO).subscribe(
       (res) => {
         if(res.ERR_MSG != null){
@@ -44,9 +45,11 @@ export class LoadPage {
         }
         this.rest.userInfo.SHIPMENT_NO = res.out_SHIPMENT_NO;
         this.rest.getReadyList();
+        this.rest.closeLoading();
       },
       (error) => {
-        alert( error)
+        this.rest.closeLoading();
+        alert( error);
       }
     )
   }

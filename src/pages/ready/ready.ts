@@ -19,6 +19,7 @@ export class ReadyPage {
   }
 
   ionViewDidLoad() {
+    alert('4')
   }
   
 
