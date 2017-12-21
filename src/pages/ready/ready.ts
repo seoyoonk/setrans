@@ -19,9 +19,13 @@ export class ReadyPage {
   }
 
   ionViewDidLoad() {
-    alert('4')
   }
   
+  reorderItems(indexes) {
+    let element = this.rest.readyList[indexes.from];
+    this.rest.readyList.splice(indexes.from, 1);
+    this.rest.readyList.splice(indexes.to, 0, element);
+  }
 
   startDelivery()
   {
