@@ -14,7 +14,8 @@ import 'rxjs/add/operator/map';
 export class RestProvider {
   private apiUrl = 'http://211.51.22.71:8080';
   userInfo={OWNER:'00', PHONE_NO:'', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:'', IS_ING:'N'};
-  readyList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:''} ];
+  readyList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:'', DELIVERY_SEQ:0} ];
+  ingList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:'', DELIVERY_SEQ:0} ];
   prop = { gps_term: 100 };
   cordova : boolean = false;
   loading;
@@ -114,18 +115,35 @@ export class RestProvider {
    .subscribe(
      res => {
        this.readyList = res.list;
-       
      },
-     error => alert(error));;
+     error => alert(error));
+  }
+  getIngList() {
+    
+   return this.post("/api/ing_list", {})
+   .subscribe(
+     res => {
+       this.ingList = res.list;
+     },
+     error => alert(error));
   }
   sendLocation(lat : number, lng :number)
   {
     return this.post("/api/insert_location", {TRUCK_LAT:lat, TRUCK_LOT:lng  });
   }
   insertDelivery(DISPATCH_NOTE_NO:string) {
-   return this.post("/api/insert_delvery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
+   return this.post("/api/insert_delivery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
   }
   deleteDelivery(DISPATCH_NOTE_NO:string) {
-   return this.post("/api/delete_delvery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
+   return this.post("/api/delete_delivery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
+  }
+  saveOrder() {
+   return this.post("/api/save_order", {list: this.readyList});
+  }
+  startDelivery(){
+    return this.post("/api/start_delivery", {list: this.readyList});
+  }
+  getDetail(DISPATCH_NOTE_NO){
+    return this.post("/api/detail", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
   }
 }
