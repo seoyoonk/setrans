@@ -27,8 +27,23 @@ export class ReadyPage {
     this.rest.readyList.splice(indexes.to, 0, element);
   }
 
+  saveOrder(){
+    let idx = 1;
+    for(let i of this.rest.readyList){
+      i.DELIVERY_SEQ = idx++;      
+    }
+    this.rest.saveOrder().subscribe(
+      (res)=>{},
+      (err)=>{console.log(err)});
+  }
+
   startDelivery()
   {
-    this.rest.startGPS();
+    this.rest.startDelivery().subscribe(
+      (res)=>{},
+      (err)=>{console.log(err)});
+    if(this.rest.isCordova()){
+      this.rest.startGPS();
+    }
   }
 }

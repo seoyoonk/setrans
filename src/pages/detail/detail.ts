@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest';
 
 /**
  * Generated class for the DetailPage page.
@@ -15,10 +16,16 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class DetailPage {
 
-  item
-  constructor(public viewCtrl:ViewController, public navCtrl: NavController, public navParams: NavParams) {
-    this.item = navParams.data;
-    this.item.rcvType="0";
+  item = {};
+  constructor(public viewCtrl:ViewController, public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
+    this.rest.getDetail(navParams.data.DISPATCH_NOTE_NO).subscribe(
+      (res)=>{
+        this.item = res;
+      },
+      (err)=>{
+        alert(err);
+      }
+    );
   }
 
   ionViewDidLoad() {
