@@ -18,7 +18,11 @@ export class DetailPage {
 
   item = {};
   constructor(public viewCtrl:ViewController, public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
-    this.rest.getDetail(navParams.data.DISPATCH_NOTE_NO).subscribe(
+    
+  }
+
+  ionViewDidLoad() {
+    this.rest.getDetail(this.navParams.data.DISPATCH_NOTE_NO).subscribe(
       (res)=>{
         this.item = res;
       },
@@ -26,10 +30,6 @@ export class DetailPage {
         alert(err);
       }
     );
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailPage');
   }
   dismiss() {
     this.viewCtrl.dismiss();

@@ -28,6 +28,10 @@
         <p class="detail-data">{{item.DISPATCH_NOTE_NO}}</p>
     </ion-item>
     <ion-item>
+        <p class="detail-title">품목</p>
+        <p class="detail-data">{{item.ITEM_NM}}</p>
+    </ion-item>
+    <ion-item>
         <p class="detail-title">받는분</p>
         <p class="detail-data">{{item.CONSIGNEE_NM}}</p>
     </ion-item>
@@ -36,12 +40,12 @@
         <p class="detail-data">{{item.CONSIGNEE_ADDR1}} {{item.CONSIGNEE_ADDR2}}</p>
     </ion-item>
     <ion-item> 
-      <p class="detail-title">연락처1</p>
+      <p class="detail-title">송하인 전화번호</p>
        <p class="detail-data"><a href="tel:{{item.CONSIGNER_TEL1}}">{{item.CONSIGNER_TEL1}}</a></p>
     </ion-item>
     <ion-item> 
-        <p class="detail-title">연락처2</p>
-      <p class="detail-data"><a href="tel:{{item.CONSIGNER_TEL2}}">{{item.CONSIGNER_TEL2}}</a></p>
+        <p class="detail-title">수취인 전화번호</p>
+      <p class="detail-data"><a href="tel:{{item.CONSIGNEE_TEL1}}">{{item.CONSIGNEE_TEL1}}</a></p>
     </ion-item>
     <ion-item> 
       <p class="detail-title">요청사항</p>
@@ -69,7 +73,7 @@
   <ion-toolbar>
      <div style="text-align:center">
      
-      <button ion-button [(hidden)]="">배송완료</button>
+      <button ion-button>배송완료</button>
     </div>
   </ion-toolbar>
 </ion-footer>  
