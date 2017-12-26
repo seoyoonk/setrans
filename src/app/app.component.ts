@@ -33,7 +33,7 @@ export class MyApp {
 
       
       if (platform.is('cordova')) {
-        
+        this.rest.setCordova(true);
         this.sim.requestReadPermission();
         this.setBackButton();
       
@@ -155,7 +155,7 @@ export class MyApp {
   }
   getPhoneNumber()
   {
-    alert('phone');
+   
     this.sim.getSimInfo().then(
       (info) => {
         if(info.phoneNumber)
