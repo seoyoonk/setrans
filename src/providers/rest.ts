@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RestProvider {
   private apiUrl = 'http://211.51.22.71:8080';
-  userInfo={OWNER:'00', PHONE_NO:'', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:'', IS_ING:'N'};
+  userInfo={FCM:'', OWNER:'00', PHONE_NO:'', CAR_REGIST_NO:'',DRIVER_TEL:'019101191', DRIVER_NM:'김기사', SHIPMENT_NO:'', IS_ING:'N'};
   readyList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:'', DELIVERY_SEQ:0} ];
   ingList=[{DISPATCH_NOTE_NO:'', ITEM_NM:'',zip:'', addr:'', CONSIGNEE_NM:'', DELIVERY_SEQ:0} ];
   prop = { gps_term: 100 };
@@ -63,10 +63,10 @@ export class RestProvider {
   {
     this.backgroundGeolocation.stop();
   }
-  appStart(phone:string, fcm:string)
+  appStart(pwd:string)
   {
    
-    let param = {phone: phone, fcm:fcm};
+    let param = {phone: this.userInfo.PHONE_NO, fcm:this.userInfo.FCM, pwd:pwd};
     return this.post("/api/appStart", param);
     
   }
