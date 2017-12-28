@@ -73,7 +73,7 @@
   <ion-toolbar>
      <div style="text-align:center">
      
-      <button ion-button>배송완료</button>
+      <button ion-button [hidden]="item.DELIVERY_STATUS != '001'" (click)="finishDelivery()">배송완료</button>
     </div>
   </ion-toolbar>
 </ion-footer>  

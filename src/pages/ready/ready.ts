@@ -33,14 +33,17 @@ export class ReadyPage {
       i.DELIVERY_SEQ = idx++;      
     }
     this.rest.saveOrder().subscribe(
-      (res)=>{},
+      (res)=>{
+        this.rest.getReadyList();},
       (err)=>{console.log(err)});
   }
 
   startDelivery()
   {
     this.rest.startDelivery().subscribe(
-      (res)=>{},
+      (res)=>{
+        this.rest.getReadyList();
+      },
       (err)=>{console.log(err)});
     if(this.rest.isCordova()){
       this.rest.startGPS();

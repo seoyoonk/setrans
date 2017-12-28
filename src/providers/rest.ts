@@ -146,4 +146,7 @@ export class RestProvider {
   getDetail(DISPATCH_NOTE_NO){
     return this.post("/api/detail", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO});
   }
+  finishDelivery(DISPATCH_NOTE_NO:string, sign: string) {
+   return this.post("/api/finish_delivery", {DISPATCH_NOTE_NO: DISPATCH_NOTE_NO, SIGN: sign});
+  }
 }

@@ -40,6 +40,7 @@ export class LoadPage {
     this.rest.insertDelivery(this.DISPATCH_NOTE_NO).subscribe(
       (res) => {
         if(res.ERR_MSG != null){
+          this.rest.closeLoading();
           alert(res.ERR_MSG);
           return;
         }
