@@ -17,7 +17,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     this.id = this.rest.userInfo.PHONE_NO;
-   
+    this.pwd = "01038770766";
   }
   login()
   {
