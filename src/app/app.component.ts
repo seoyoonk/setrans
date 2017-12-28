@@ -3,7 +3,7 @@ import { Platform , ToastController , Nav, IonicApp, App} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login/login';
 import { RestProvider } from '../providers/rest';
 import { Sim } from '@ionic-native/sim';
 import { FCM } from '@ionic-native/fcm'
@@ -101,56 +101,10 @@ export class MyApp {
   {
     if(this.mobile != null && this.token != null)
     {
-      this.rest.appStart(this.mobile, this.token).subscribe(
-        (data) =>{
-            if(data.error != null)
-            {
-              alert(data.error);
-              return ;
-            }
-            else
-            {
-              if(data.user  == null)
-              {
-                alert("기사님이 셋팅된 것이 없습니다.");
-                this.platform.exitApp();
-              }
-              else
-              {
-                this.rest.userInfo = data.user;
-                this.rest.prop = data.prop;
-                //alert(this.rest.userInfo.DRIVER_NM + "님, 오늘도 좋은 하루 되세요.");
-              
-               
-                if (this.platform.is('cordova')) {
-                  if(this.rest.userInfo.IS_ING =='Y')
-                  {
-                    this.rest.startGPS();
-                  }
-               
-                  this.splashScreen.hide();
-                  this.app.getRootNav().setRoot(TabsPage).then(data => {
-                   
-                  }, (error) => {
-                    
-                  })
-                }
-                else
-                {
-                  this.rootPage = TabsPage;
-                }
-              }
-            }
-        },
-        (err)=>{
-          alert(err);
-          return ;
-        });
-       
-        
-  
-  
-      
+      this.rest.userInfo.PHONE_NO = this.mobile;
+      this.rest.userInfo.FCM = this.token;
+      this.splashScreen.hide();
+      this.rootPage = LoginPage;   
     }
   }
   getPhoneNumber()

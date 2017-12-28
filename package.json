@@ -28,6 +28,8 @@
     "@ionic-native/splash-screen": "^4.5.2",
     "@ionic-native/status-bar": "^4.5.2",
     "@ionic/storage": "2.0.1",
+    "cordova-android": "~6.3.0",
+    "cordova-bluebird-api": "git+https://github.com/flyingcotents/cordova-bluebird-api.git",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-mauron85-background-geolocation": "^2.3.3",
@@ -41,8 +43,7 @@
     "phonegap-plugin-barcodescanner": "^7.0.0",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.12",
-    "cordova-android": "~6.3.0"
+    "zone.js": "0.8.12"
   },
   "devDependencies": {
     "@ionic/app-scripts": "2.1.4",
@@ -67,7 +68,8 @@
         "CONTENT_AUTHORITY": "$PACKAGE_NAME"
       },
       "phonegap-plugin-barcodescanner": {},
-      "cordova-plugin-fcm": {}
+      "cordova-plugin-fcm": {},
+      "com.bluefletch.bluebird": {}
     },
     "platforms": [
       "android"

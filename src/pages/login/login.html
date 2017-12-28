@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>세방 택배(기사용)</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+  <ion-item>
+    <ion-label stacked>아이디</ion-label>
+    <ion-input type="text" readonly="true" [(ngModel)]="id"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>패스워드</ion-label>
+    <ion-input type="password" [(ngModel)]="pwd"></ion-input>
+  </ion-item>
+
+</ion-list>
+<div padding>
+    <button ion-button color="primary" block (click)="login()">로그인</button>
+  </div>
+</ion-content>

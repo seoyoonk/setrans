@@ -10,6 +10,7 @@ import { LoadCancelPage } from '../pages/load_cancel/load_cancel';
 import { ReadyPage } from '../pages/ready/ready';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DetailPage } from '../pages/detail/detail';
+import { LoginPage } from '../pages/login/login';
 import { RestProvider } from '../providers/rest';
 import { HttpModule } from '@angular/http';
 import { Sim } from '@ionic-native/sim';
@@ -19,7 +20,7 @@ import { FCM } from '@ionic-native/fcm'
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage, FinishPage, ReadyPage, LoadPage, LoadCancelPage, DetailPage
+    TabsPage, FinishPage, ReadyPage, LoadPage, LoadCancelPage, DetailPage, LoginPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +30,7 @@ import { FCM } from '@ionic-native/fcm'
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage, FinishPage, ReadyPage, LoadPage, LoadCancelPage, DetailPage
+    TabsPage, FinishPage, ReadyPage, LoadPage, LoadCancelPage, DetailPage,LoginPage
   ],
   providers: [
     StatusBar,
