@@ -7,74 +7,77 @@
 <ion-header>
 
   <ion-navbar>
-      
+
     <ion-title>배송상세</ion-title>
     <ion-buttons start>
-        <button ion-button (click)="dismiss()">
-          <span ion-text color="primary" showWhen="ios">Cancel</span>
-          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content >
-  
+<ion-content>
+
   <ion-list>
     <ion-item>
-        <p class="detail-title">송장번호</p>
-        <p class="detail-data">{{item.DISPATCH_NOTE_NO}}</p>
+      <p class="detail-title">송장번호</p>
+      <p class="detail-data">{{item.DISPATCH_NOTE_NO}}</p>
     </ion-item>
     <ion-item>
-        <p class="detail-title">품목</p>
-        <p class="detail-data">{{item.ITEM_NM}}</p>
+      <p class="detail-title">품목</p>
+      <p class="detail-data">{{item.ITEM_NM}}</p>
     </ion-item>
     <ion-item>
-        <p class="detail-title">받는분</p>
-        <p class="detail-data">{{item.CONSIGNEE_NM}}</p>
+      <p class="detail-title">받는분</p>
+      <p class="detail-data">{{item.CONSIGNEE_NM}}</p>
     </ion-item>
     <ion-item>
-        <p class="detail-title">주소</p>
-        <p class="detail-data">{{item.CONSIGNEE_ADDR1}} {{item.CONSIGNEE_ADDR2}}</p>
+      <p class="detail-title">주소</p>
+      <p class="detail-data">{{item.CONSIGNEE_ADDR1}} {{item.CONSIGNEE_ADDR2}}</p>
     </ion-item>
-    <ion-item> 
+    <ion-item>
       <p class="detail-title">송하인 전화번호</p>
-       <p class="detail-data"><a href="tel:{{item.CONSIGNER_TEL1}}">{{item.CONSIGNER_TEL1}}</a></p>
+      <p class="detail-data">
+        <a href="tel:{{item.CONSIGNER_TEL1}}">{{item.CONSIGNER_TEL1}}</a>
+      </p>
     </ion-item>
-    <ion-item> 
-        <p class="detail-title">수취인 전화번호</p>
-      <p class="detail-data"><a href="tel:{{item.CONSIGNEE_TEL1}}">{{item.CONSIGNEE_TEL1}}</a></p>
+    <ion-item>
+      <p class="detail-title">수취인 전화번호</p>
+      <p class="detail-data">
+        <a href="tel:{{item.CONSIGNEE_TEL1}}">{{item.CONSIGNEE_TEL1}}</a>
+      </p>
     </ion-item>
-    <ion-item> 
+    <ion-item>
       <p class="detail-title">요청사항</p>
       <p class="detail-data">{{item.HANDLE_MSG}}</p>
     </ion-item>
-    <ion-item> 
+    <ion-item>
       <ion-label stacked color="dark">부재시수령방식</ion-label>
-      
-      <ion-select  [(ngModel)]="item.ABSENCE_CODE" interface="popover">
+
+      <ion-select [(ngModel)]="item.ABSENCE_CODE" interface="popover">
         <ion-option value="1">경비실</ion-option>
         <ion-option value="2">무인택배함</ion-option>
         <ion-option value="9">기타</ion-option>
       </ion-select>
-    
+
     </ion-item>
-    <ion-item> 
-        <ion-label stacked color="dark">부재시 취급방법</ion-label>
-        <ion-textarea>{{item.ABSENCE_MSG}}</ion-textarea>
-    </ion-item>    
+    <ion-item>
+      <ion-label stacked color="dark">부재시 취급방법</ion-label>
+      <ion-textarea>{{item.ABSENCE_MSG}}</ion-textarea>
+    </ion-item>
     <ion-item>
     </ion-item>
   </ion-list>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-     <div style="text-align:center">
-     
+    <div style="text-align:center">
+
       <button ion-button [hidden]="item.DELIVERY_STATUS != '001'" (click)="finishDelivery()">배송완료</button>
     </div>
   </ion-toolbar>
-</ion-footer>  
-
+</ion-footer>

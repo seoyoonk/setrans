@@ -54,6 +54,12 @@ export class FinishPage {
         this.rest.showLoading("요청중입니다.");
         this.rest.finishDelivery(this.DISPATCH_NOTE_NO, data.signature).subscribe(
           (res) => {
+            let errMsg = res.ERR_MSG;
+            if(errMsg != null && errMsg.trim().length != 0){
+              this.rest.closeLoading();
+              alert(errMsg);
+              return;
+            }
             this.rest.getIngList();
             this.rest.closeLoading();
           },

@@ -17,7 +17,7 @@
     <ion-content >
       <ion-list>
         <ion-item>
-            <ion-input type="text" placeholder="송장번호" [(ngModel)]="DISPATCH_NOTE_NO" (focus)="getBarCode()"></ion-input>
+            <ion-input type="text" placeholder="송장번호" [(ngModel)]="DISPATCH_NOTE_NO" (ionFocus)="getBarCode()"></ion-input>
             <button ion-button item-end (click)="deleteDelivery()"> 
                 취소
             </button>      

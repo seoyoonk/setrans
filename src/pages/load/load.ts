@@ -16,30 +16,28 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class LoadPage {
 
-  DISPATCH_NOTE_NO : string = "";
+  DISPATCH_NOTE_NO: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, private  barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, private barcodeScanner: BarcodeScanner) {
   }
 
   ionViewDidLoad() {
   }
-  getBarCode()
-  {
-    if(this.rest.isCordova())
-    {
+  getBarCode() {
+    if (this.rest.isCordova()) {
       this.barcodeScanner.scan().then((barcodeData) => {
-        
+
         this.DISPATCH_NOTE_NO = barcodeData.text;
       }, (err) => {
-          alert(err);
+        alert(err);
       })
     }
   }
-  insertDelivery(){
+  insertDelivery() {
     this.rest.showLoading("요청중입니다.");
     this.rest.insertDelivery(this.DISPATCH_NOTE_NO).subscribe(
       (res) => {
-        if(res.ERR_MSG != null){
+        if (res.ERR_MSG != null) {
           this.rest.closeLoading();
           alert(res.ERR_MSG);
           return;
@@ -50,15 +48,14 @@ export class LoadPage {
       },
       (error) => {
         this.rest.closeLoading();
-        alert( error);
+        alert(error);
       }
     )
   }
-  delItem(idx)
-  {
+  delItem(idx) {
     this.rest.readyList.splice(idx, 1);
-    
+
   }
-  
+
 
 }

@@ -5,14 +5,17 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  </ion-header>
+    <ion-toolbar color="main">
+        <ion-title>서명</ion-title>
+    </ion-toolbar>
+</ion-header>
 
-<ion-content center >
-    <signature-pad style="margin-left: 5%;margin-top: 5%" [options]="signaturePadOptions" ></signature-pad>
-    <button ion-button  (click)="finish()"> 
+<ion-content center>
+    <signature-pad style="margin-left: 5%;margin-top: 5%" [options]="signaturePadOptions"></signature-pad>
+    <button ion-button (click)="finish()">
         완료
     </button>
-    <button ion-button (click)="cancel()"> 
+    <button ion-button (click)="cancel()">
         취소
     </button>
 </ion-content>
