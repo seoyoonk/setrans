@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 /**
  * Generated class for the LoadPage page.
  *
@@ -18,29 +17,39 @@ export class LoadPage {
 
   DISPATCH_NOTE_NO : string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, private  barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
   }
 
   ionViewDidLoad() {
+   
+  }
+ 
+
+  ionViewDidEnter () {
+    let that = this;
+    this.rest.setBarCodeCallback(function(data)
+    {
+      that.setBarcode( data ) ;
+    });
+  }
+  
+  setBarcode(data)
+  {
+    this.DISPATCH_NOTE_NO = data;
+    this.insertDelivery();
   }
   getBarCode()
   {
-    if(this.rest.isCordova())
-    {
-      this.barcodeScanner.scan().then((barcodeData) => {
-        
-        this.DISPATCH_NOTE_NO = barcodeData.text;
-      }, (err) => {
-          alert(err);
-      })
-    }
+    this.rest.getBarCode( );  
   }
   insertDelivery(){
     this.rest.showLoading("요청중입니다.");
     this.rest.insertDelivery(this.DISPATCH_NOTE_NO).subscribe(
       (res) => {
         if(res.ERR_MSG != null){
+          this.rest.closeLoading();
           alert(res.ERR_MSG);
+         
           return;
         }
         this.rest.userInfo.SHIPMENT_NO = res.out_SHIPMENT_NO;

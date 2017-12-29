@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform , ToastController , Nav, IonicApp, App} from 'ionic-angular';
+import { Platform , ToastController , Nav, IonicApp} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -7,6 +7,7 @@ import { LoginPage } from '../pages/login/login';
 import { RestProvider } from '../providers/rest';
 import { Sim } from '@ionic-native/sim';
 import { FCM } from '@ionic-native/fcm'
+import { Device } from '@ionic-native/device';
 
 //declare var FCMPlugin;
 @Component({
@@ -19,7 +20,8 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   constructor(private platform: Platform, private toastCtrl:ToastController, statusBar: StatusBar, public splashScreen: SplashScreen,
-    private rest:RestProvider, private sim: Sim, private app: App, private ionicApp: IonicApp, private fcm : FCM) {
+    private rest:RestProvider, private sim: Sim,  private ionicApp: IonicApp, private fcm : FCM,
+    device:Device) {
     
    
     
@@ -33,6 +35,8 @@ export class MyApp {
 
       
       if (platform.is('cordova')) {
+        this.rest.manufacturer =  device.manufacturer;
+        console.log(platform);
         this.rest.setCordova(true);
         this.sim.requestReadPermission();
         this.setBackButton();

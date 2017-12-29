@@ -16,7 +16,9 @@ import { HttpModule } from '@angular/http';
 import { Sim } from '@ionic-native/sim';
 import { BackgroundGeolocation} from '@ionic-native/background-geolocation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { FCM } from '@ionic-native/fcm'
+import { FCM } from '@ionic-native/fcm';
+import { Device } from '@ionic-native/device';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -39,7 +41,7 @@ import { FCM } from '@ionic-native/fcm'
     BackgroundGeolocation,
     Nav, ToastController,
     Sim,BarcodeScanner,
-    FCM,
+    FCM,Device,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

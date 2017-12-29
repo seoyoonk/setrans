@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RestProvider } from '../../providers/rest';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { RestProvider } from '../../providers/rest'; 
 /**
  * Generated class for the LoadPage page.
  *
@@ -18,10 +17,27 @@ export class LoadCancelPage {
 
   DISPATCH_NOTE_NO : string = "";
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider,  private  barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider ) {
   }
 
   ionViewDidLoad() {
+  }
+  ionViewDidEnter () {
+    let that = this;
+    this.rest.setBarCodeCallback(function(data)
+    {
+      that.setBarcode( data ) ;
+    });
+  }
+  
+  setBarcode(data)
+  {
+    this.DISPATCH_NOTE_NO = data;
+    this.deleteDelivery();
+  }
+  getBarCode()
+  {
+    this.rest.getBarCode( );  
   }
   delItem(idx)
   {
@@ -30,18 +46,7 @@ export class LoadCancelPage {
     this.deleteDelivery();
     
   }
-  getBarCode()
-  {
-    if(this.rest.isCordova())
-    {
-      this.barcodeScanner.scan().then((barcodeData) => {
-        
-        this.DISPATCH_NOTE_NO = barcodeData.text;
-      }, (err) => {
-          alert(err);
-      })
-    }
-  }
+ 
   deleteDelivery(){
     this.rest.showLoading("요청중입니다.");
     this.rest.deleteDelivery(this.DISPATCH_NOTE_NO).subscribe(
@@ -56,7 +61,8 @@ export class LoadCancelPage {
         this.rest.closeLoading();
       },
       (error) => {
-        alert( error)
+        this.rest.closeLoading();
+        alert( error);
       }
     )
   }

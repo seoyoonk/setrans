@@ -4,6 +4,8 @@ import { LoadingController } from 'ionic-angular';
 import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 import 'rxjs/add/operator/map';
 
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+declare var bluebirdBarcodeScanner;
 /*
   Generated class for the RestProvider provider.
 
@@ -19,12 +21,19 @@ export class RestProvider {
   prop = { gps_term: 100 };
   cordova : boolean = false;
   loading;
-  constructor(public http: Http, private backgroundGeolocation: BackgroundGeolocation, private loadingCtrl: LoadingController) {
+  barcodeCallBackFn;
+  manufacturer:string = ""; 
+  constructor(public http: Http, private backgroundGeolocation: BackgroundGeolocation, 
+    private loadingCtrl: LoadingController,  private  barcodeScanner: BarcodeScanner) {
     console.log('Hello RestProvider Provider');
   }
   setCordova(cordova:boolean)
   {
     this.cordova = cordova;
+  }
+  isBB()// bluebird여부
+  {
+    return this.manufacturer=="Bluebird";
   }
   isCordova()
   {
@@ -69,6 +78,40 @@ export class RestProvider {
     let param = {phone: this.userInfo.PHONE_NO, fcm:this.userInfo.FCM, pwd:pwd};
     return this.post("/api/appStart", param);
     
+  }
+ 
+ 
+ 
+
+  setBarCodeCallback( callback)
+  {
+     
+    this.barcodeCallBackFn = callback;
+    if (this.isBB()) {
+      
+      bluebirdBarcodeScanner.register(this.barcodeCallBackFn, function (argument) {
+        alert("failed to register barcode scanner");
+      });
+    }
+    
+  }
+  getBarCode( )
+  {
+    
+    let that = this;
+  
+    if(this.isCordova())
+    {
+      if(!this.isBB())
+      {
+        this.barcodeScanner.scan().then((barcodeData) => {
+          
+          that.barcodeCallBackFn(barcodeData.text);
+        }, (err) => {
+            alert(err);
+        })
+      }
+    }
   }
   private post(url, param1: any) {
     
