@@ -57,7 +57,7 @@ export class RestProvider {
       stationaryRadius: 20,
       distanceFilter: 10,
       interval : this.prop.gps_term * 1000,
-      debug: true, //  enable this hear sounds for background-geolocation life-cycle.
+      debug: false, //  enable this hear sounds for background-geolocation life-cycle.
       stopOnTerminate: true, // enable this to clear background location settings when the app terminates
     };
     this.backgroundGeolocation.configure(config).subscribe((location: BackgroundGeolocationResponse) => {
