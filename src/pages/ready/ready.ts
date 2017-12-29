@@ -20,29 +20,32 @@ export class ReadyPage {
 
   ionViewDidLoad() {
   }
-  
+
   reorderItems(indexes) {
     let element = this.rest.readyList[indexes.from];
     this.rest.readyList.splice(indexes.from, 1);
     this.rest.readyList.splice(indexes.to, 0, element);
   }
 
-  saveOrder(){
+  saveOrder() {
     let idx = 1;
-    for(let i of this.rest.readyList){
-      i.DELIVERY_SEQ = idx++;      
+    for (let i of this.rest.readyList) {
+      i.DELIVERY_SEQ = idx++;
     }
     this.rest.saveOrder().subscribe(
-      (res)=>{},
-      (err)=>{console.log(err)});
+      (res) => {
+        this.rest.getReadyList();
+      },
+      (err) => { console.log(err) });
   }
 
-  startDelivery()
-  {
+  startDelivery() {
     this.rest.startDelivery().subscribe(
-      (res)=>{},
-      (err)=>{console.log(err)});
-    if(this.rest.isCordova()){
+      (res) => {
+        this.rest.getReadyList();
+      },
+      (err) => { console.log(err) });
+    if (this.rest.isCordova()) {
       this.rest.startGPS();
     }
   }

@@ -12,12 +12,11 @@
 
 </ion-header>
 
-
 <ion-content >
   <ion-list>
     <ion-item>
-        <ion-input type="text" placeholder="송장번호"></ion-input>
-        <button ion-button item-end> 
+        <ion-input type="text" placeholder="송장번호" (ionFocus)="getBarCode()" [(ngModel)]="DISPATCH_NOTE_NO"></ion-input>
+        <button ion-button item-end (click)="finishDelivery()"> 
             완료
         </button>      
     </ion-item>
@@ -26,8 +25,6 @@
        
       <p><span class="no">{{i+1}}.</span> {{ item.DESTINATION_ZIP_CD }} {{ item.CONSIGNEE_NM }}</p>
       <h2> {{ item.CONSIGNEE_ADDR1 }} {{ item.CONSIGNEE_ADDR2 }}</h2>
-      
-      
       
     </ion-item>
   </ion-list>  

@@ -15,7 +15,7 @@ import { RestProvider } from '../../providers/rest';
 })
 export class LoadPage {
 
-  DISPATCH_NOTE_NO : string = "";
+  DISPATCH_NOTE_NO: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
   }
@@ -42,11 +42,11 @@ export class LoadPage {
   {
     this.rest.getBarCode( );  
   }
-  insertDelivery(){
+  insertDelivery() {
     this.rest.showLoading("요청중입니다.");
     this.rest.insertDelivery(this.DISPATCH_NOTE_NO).subscribe(
       (res) => {
-        if(res.ERR_MSG != null){
+        if (res.ERR_MSG != null) {
           this.rest.closeLoading();
           alert(res.ERR_MSG);
          
@@ -58,15 +58,14 @@ export class LoadPage {
       },
       (error) => {
         this.rest.closeLoading();
-        alert( error);
+        alert(error);
       }
     )
   }
-  delItem(idx)
-  {
+  delItem(idx) {
     this.rest.readyList.splice(idx, 1);
-    
+
   }
-  
+
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RestProvider } from '../../providers/rest'; 
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest';
 /**
  * Generated class for the LoadPage page.
  *
@@ -17,7 +17,8 @@ export class LoadCancelPage {
 
   DISPATCH_NOTE_NO : string = "";
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider,
+    private alertCtrl: AlertController ) {
   }
 
   ionViewDidLoad() {
@@ -44,28 +45,51 @@ export class LoadCancelPage {
     
     this.DISPATCH_NOTE_NO = this.rest.readyList.splice(idx, 1)[0].DISPATCH_NOTE_NO;
     this.deleteDelivery();
-    
-  }
- 
-  deleteDelivery(){
-    this.rest.showLoading("요청중입니다.");
-    this.rest.deleteDelivery(this.DISPATCH_NOTE_NO).subscribe(
-      (res) => {
-        if(res.ERR_MSG != null){
-          this.rest.closeLoading();
-          alert(res.ERR_MSG);
-          return;
-        }
-        this.rest.userInfo.SHIPMENT_NO = res.out_SHIPMENT_NO;
-        this.rest.getReadyList();
-        this.rest.closeLoading();
-      },
-      (error) => {
-        this.rest.closeLoading();
-        alert( error);
-      }
-    )
+
   }
   
+  deleteDelivery() {
+    let alertObj = this.alertCtrl.create({
+      title: '취소 확인',
+      message: '취소하시겠습니까?',
+      buttons: [
+        {
+          text: '예',
+          role: 'yes',
+          handler: () => {
+            if(this.DISPATCH_NOTE_NO == null || this.DISPATCH_NOTE_NO.trim().length == 0){
+              alert("송장번호를 입력해 주세요");
+              return; 
+            }
+            this.rest.showLoading("요청중입니다.");
+            this.rest.deleteDelivery(this.DISPATCH_NOTE_NO).subscribe(
+              (res) => {
+                if (res.ERR_MSG != null) {
+                  this.rest.closeLoading();
+                  alert(res.ERR_MSG);
+                  return;
+                }
+                this.rest.userInfo.SHIPMENT_NO = res.out_SHIPMENT_NO;
+                this.rest.getReadyList();
+                this.rest.closeLoading();
+              },
+              (error) => {
+                alert(error)
+              }
+            )
+          }
+        },
+        {
+          text: '아니요',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    alertObj.present();
+
+  }
+
 
 }

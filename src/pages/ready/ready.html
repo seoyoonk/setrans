@@ -6,30 +6,31 @@
 -->
 <ion-header>
 
-    <ion-toolbar color="main" >
+  <ion-toolbar color="main">
 
-    <ion-title  >순번조정 </ion-title>
+    <ion-title>순번조정 </ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="saveOrder()">
-          <ion-icon name="checkmark"></ion-icon>
-              순서저장
+        <ion-icon name="checkmark"></ion-icon>
+        순서저장
       </button>
       <button ion-button icon-left color="dark" (click)="startDelivery()">
         <ion-icon name="ios-send"></ion-icon>
-            배송 출발
-    </button>
-    </ion-buttons>  
-    </ion-toolbar>
+        배송 출발
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 
 </ion-header>
 
 
-<ion-content >
+<ion-content>
   <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
     <ion-item *ngFor=" let item of rest.readyList; let i = index">
-      <p><span class="no">{{i+1}}.</span> {{ item.DESTINATION_ZIP_CD  }} {{ item.CONSIGNEE_NM }}</p>
+      <p>
+        <span class="no">{{i+1}}.</span> {{ item.DESTINATION_ZIP_CD }} {{ item.CONSIGNEE_NM }}</p>
       <h2> {{ item.CONSIGNEE_ADDR1 }} {{ item.CONSIGNEE_ADDR2 }}</h2>
     </ion-item>
-  </ion-list>  
-  
+  </ion-list>
+
 </ion-content>
