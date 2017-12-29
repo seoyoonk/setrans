@@ -42,10 +42,8 @@ export class LoadCancelPage {
   }
   delItem(idx)
   {
-    
     this.DISPATCH_NOTE_NO = this.rest.readyList.splice(idx, 1)[0].DISPATCH_NOTE_NO;
     this.deleteDelivery();
-
   }
   
   deleteDelivery() {
@@ -64,6 +62,7 @@ export class LoadCancelPage {
             this.rest.showLoading("요청중입니다.");
             this.rest.deleteDelivery(this.DISPATCH_NOTE_NO).subscribe(
               (res) => {
+                this.DISPATCH_NOTE_NO = '';
                 if (res.ERR_MSG != null) {
                   this.rest.closeLoading();
                   alert(res.ERR_MSG);
@@ -74,6 +73,7 @@ export class LoadCancelPage {
                 this.rest.closeLoading();
               },
               (error) => {
+                this.DISPATCH_NOTE_NO = '';
                 alert(error)
               }
             )

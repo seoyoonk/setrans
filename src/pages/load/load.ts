@@ -55,6 +55,7 @@ export class LoadPage {
         this.rest.userInfo.SHIPMENT_NO = res.out_SHIPMENT_NO;
         this.rest.getReadyList();
         this.rest.closeLoading();
+        this.DISPATCH_NOTE_NO = '';
       },
       (error) => {
         this.rest.closeLoading();
