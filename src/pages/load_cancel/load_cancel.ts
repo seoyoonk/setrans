@@ -25,6 +25,7 @@ export class LoadCancelPage {
   }
   ionViewDidEnter () {
     let that = this;
+    this.DISPATCH_NOTE_NO = '';
     this.rest.setBarCodeCallback(function(data)
     {
       that.setBarcode( data ) ;
