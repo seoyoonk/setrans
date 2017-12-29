@@ -23,15 +23,22 @@ export class FinishPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public rest: RestProvider, private barcodeScanner: BarcodeScanner) {
   }
 
-  getBarCode() {
-    if (this.rest.isCordova()) {
-      this.barcodeScanner.scan().then((barcodeData) => {
-
-        this.DISPATCH_NOTE_NO = barcodeData.text;
-      }, (err) => {
-        alert(err);
-      })
-    }
+  ionViewDidEnter () {
+    let that = this;
+    this.rest.setBarCodeCallback(function(data)
+    {
+      that.setBarcode( data ) ;
+    });
+  }
+  
+  setBarcode(data)
+  {
+    this.DISPATCH_NOTE_NO = data;
+    this.finishDelivery();
+  }
+  getBarCode()
+  {
+    this.rest.getBarCode( );  
   }
 
   ionViewDidLoad() {

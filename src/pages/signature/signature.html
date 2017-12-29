@@ -12,10 +12,17 @@
 
 <ion-content center>
     <signature-pad style="margin-left: 5%" [options]="signaturePadOptions"></signature-pad>
-    <button ion-button (click)="finish()">
-        완료
-    </button>
-    <button ion-button (click)="cancel()">
-        취소
-    </button>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <div style="text-align:center">
+            <button ion-button (click)="finish()">
+                완료
+            </button>
+            <button ion-button (click)="cancel()">
+                취소
+            </button>
+        </div>
+    </ion-toolbar>
+</ion-footer>
