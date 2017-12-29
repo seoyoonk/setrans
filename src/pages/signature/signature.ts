@@ -31,7 +31,7 @@ export class SignaturePage {
     let perW = this.platform.width() / 100.0
     let perH = this.platform.height() / 100.0
     this.signaturePadOptions.canvasWidth = 90.0 * perW;
-    this.signaturePadOptions.canvasHeight = 90.0 * perH;
+    this.signaturePadOptions.canvasHeight = 75.0 * perH;
   }
 
   ionViewDidLoad() {
