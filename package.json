@@ -34,7 +34,7 @@
     "com.bluefletch.bluebird": "https://github.com/flyingcotents/cordova-bluebird-api.git",
     "cordova-android": "6.3.0",
     "cordova-bluebird-api": "git+https://github.com/flyingcotents/cordova-bluebird-api.git",
-    "cordova-plugin-badge": "^0.8.5",
+    "cordova-plugin-badge": "^0.8.6",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-mauron85-background-geolocation": "^2.3.3",
