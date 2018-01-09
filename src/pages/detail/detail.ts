@@ -17,7 +17,7 @@ import { SignaturePage } from '../signature/signature';
 })
 export class DetailPage {
 
-  item = { DISPATCH_NOTE_NO: "" };
+  item = { DISPATCH_NOTE_NO: "", CONSIGNEE_TEL2: "" };
   constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public rest: RestProvider) {
 
   }
@@ -44,7 +44,7 @@ export class DetailPage {
           return;
         }
         this.rest.showLoading("요청중입니다.");
-        this.rest.finishDelivery(this.item.DISPATCH_NOTE_NO, data.signature).subscribe(
+        this.rest.finishDelivery(this.item.DISPATCH_NOTE_NO, data.signature, this.item.CONSIGNEE_TEL2).subscribe(
           (res) => {
             this.rest.getIngList();
             this.rest.closeLoading();

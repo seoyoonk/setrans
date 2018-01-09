@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest';
 /**
  * Generated class for the ReadyPage page.
@@ -15,7 +15,7 @@ import { RestProvider } from '../../providers/rest';
 })
 export class ReadyPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private rest: RestProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private rest: RestProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -35,18 +35,36 @@ export class ReadyPage {
     this.rest.saveOrder().subscribe(
       (res) => {
         this.rest.getReadyList();
+        let alertObj = this.alertCtrl.create({
+          title: '배송 시작하시겠습니까?',
+          message: '',
+          buttons: [
+            {
+              text: '예',
+              role: 'yes',
+              handler: () => {
+                this.rest.startDelivery().subscribe(
+                  (res) => {
+                    this.rest.getReadyList();
+                  },
+                  (err) => {
+                    console.log(err)
+                  });
+                if (this.rest.isCordova()) {
+                  this.rest.startGPS();
+                }
+              }
+            },
+            {
+              text: '아니요',
+              role: 'nein',
+              handler: () => {
+              }
+            }
+          ]
+        });
+        alertObj.present();
       },
       (err) => { console.log(err) });
-  }
-
-  startDelivery() {
-    this.rest.startDelivery().subscribe(
-      (res) => {
-        this.rest.getReadyList();
-      },
-      (err) => { console.log(err) });
-    if (this.rest.isCordova()) {
-      this.rest.startGPS();
-    }
   }
 }

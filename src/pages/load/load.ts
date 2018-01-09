@@ -36,6 +36,9 @@ export class LoadPage {
   
   setBarcode(data)
   {
+    if(data == null || data.trim() == ""){
+      return;
+    }
     this.DISPATCH_NOTE_NO = data;
     this.insertDelivery();
   }

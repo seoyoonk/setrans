@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { DetailPage } from '../detail/detail';
 import { RestProvider } from '../../providers/rest';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -23,23 +23,25 @@ export class FinishPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public rest: RestProvider, private barcodeScanner: BarcodeScanner) {
   }
 
-  ionViewDidEnter () {
+  ionViewDidEnter() {
     let that = this;
     this.DISPATCH_NOTE_NO = '';
-    this.rest.setBarCodeCallback(function(data)
-    {
-      that.setBarcode( data ) ;
+
+    this.rest.setBarCodeCallback(function (data) {
+      that.setBarcode(data);
     });
   }
-  
-  setBarcode(data)
-  {
+
+  setBarcode(data) {
+    if(data == null || data.trim() == ""){
+      return;
+    }
     this.DISPATCH_NOTE_NO = data;
-    this.finishDelivery();
+    const profileModal = this.modalCtrl.create(DetailPage, { DISPATCH_NOTE_NO: this.DISPATCH_NOTE_NO });
+    profileModal.present();
   }
-  getBarCode()
-  {
-    this.rest.getBarCode( );  
+  getBarCode() {
+            this.rest.getBarCode();
   }
 
   ionViewDidLoad() {
@@ -50,35 +52,4 @@ export class FinishPage {
     profileModal.present();
 
   }
-  finishDelivery() {
-    const modal = this.modalCtrl.create(SignaturePage);
-    modal.onDidDismiss(
-      (data, role) => {
-        console.log(data);
-        console.log(role);
-        if(data == null || data.signature == null){
-          return;
-        }
-        this.rest.showLoading("요청중입니다.");
-        this.rest.finishDelivery(this.DISPATCH_NOTE_NO, data.signature).subscribe(
-          (res) => {
-            let errMsg = res.ERR_MSG;
-            if(errMsg != null && errMsg.trim().length != 0){
-              this.rest.closeLoading();
-              alert(errMsg);
-              return;
-            }
-            this.rest.getIngList();
-            this.rest.closeLoading();
-          },
-          (err) => {
-            this.rest.closeLoading();
-            alert(err);
-          }
-        );
-      });
-      modal.present();
-
-  }
-
 }

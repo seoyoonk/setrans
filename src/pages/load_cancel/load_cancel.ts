@@ -15,38 +15,36 @@ import { RestProvider } from '../../providers/rest';
 })
 export class LoadCancelPage {
 
-  DISPATCH_NOTE_NO : string = "";
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider,
-    private alertCtrl: AlertController ) {
+  DISPATCH_NOTE_NO: string = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
   }
-  ionViewDidEnter () {
+  ionViewDidEnter() {
     let that = this;
     this.DISPATCH_NOTE_NO = '';
-    this.rest.setBarCodeCallback(function(data)
-    {
-      that.setBarcode( data ) ;
+    this.rest.setBarCodeCallback(function (data) {
+      that.setBarcode(data);
     });
   }
-  
-  setBarcode(data)
-  {
+
+  setBarcode(data) {
+    if(data == null || data.trim() == ""){
+      return;
+    }
     this.DISPATCH_NOTE_NO = data;
     this.deleteDelivery();
   }
-  getBarCode()
-  {
-    this.rest.getBarCode( );  
+  getBarCode() {
+    this.rest.getBarCode();
   }
-  delItem(idx)
-  {
-    this.DISPATCH_NOTE_NO = this.rest.readyList.splice(idx, 1)[0].DISPATCH_NOTE_NO;
+  delItem(idx) {
+    this.DISPATCH_NOTE_NO = this.rest.readyList[idx].DISPATCH_NOTE_NO;
     this.deleteDelivery();
   }
-  
+
   deleteDelivery() {
     let alertObj = this.alertCtrl.create({
       title: '취소 확인',
@@ -56,9 +54,9 @@ export class LoadCancelPage {
           text: '예',
           role: 'yes',
           handler: () => {
-            if(this.DISPATCH_NOTE_NO == null || this.DISPATCH_NOTE_NO.trim().length == 0){
+            if (this.DISPATCH_NOTE_NO == null || this.DISPATCH_NOTE_NO.trim().length == 0) {
               alert("송장번호를 입력해 주세요");
-              return; 
+              return;
             }
             this.rest.showLoading("요청중입니다.");
             this.rest.deleteDelivery(this.DISPATCH_NOTE_NO).subscribe(

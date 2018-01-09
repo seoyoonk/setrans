@@ -96,4 +96,5 @@
     <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.0" />
     <plugin name="cordova-plugin-fcm" spec="^2.1.2" />
     <plugin name="com.bluefletch.bluebird" spec="https://github.com/flyingcotents/cordova-bluebird-api.git" />
+    <plugin name="cordova-plugin-local-notification" />
 </widget>
