@@ -23,12 +23,14 @@ export class TabsPage {
   notiCnt: number = 0;
 
   constructor(public rest: RestProvider, private fcm: FCM, public modalCtrl: ModalController) {
-
-    fcm.onNotification().subscribe(data => {
-      const profileModal = this.modalCtrl.create(DetailPage, data);
-      profileModal.present();
-      
-    });
+    if(this.rest.isCordova())
+    {
+      fcm.onNotification().subscribe(data => {
+        const profileModal = this.modalCtrl.create(DetailPage, data);
+        profileModal.present();
+        
+      });
+    }
   }
 
   ionViewDidLoad() {
