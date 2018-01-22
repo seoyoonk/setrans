@@ -156,7 +156,7 @@ export class RestProvider {
       .subscribe(
       res => {
         this.ingList = res.list;
-        if(this.ingList.length == 0){
+        if(this.ingList.length == 0 && this.readyList.length == 0){
           this.stopGPS();
           this.userInfo.SHIPMENT_NO = "";
         }
