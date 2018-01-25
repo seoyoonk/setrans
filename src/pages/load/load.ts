@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest';
 /**
  * Generated class for the LoadPage page.
@@ -17,7 +17,7 @@ export class LoadPage {
 
   DISPATCH_NOTE_NO: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
+  constructor(public navCtrl: NavController,  private toastCtrl:ToastController,public navParams: NavParams, public rest: RestProvider) {
   }
 
   ionViewDidLoad() {
@@ -52,8 +52,19 @@ export class LoadPage {
       (res) => {
         if (res.ERR_MSG != null) {
           this.rest.closeLoading();
-          alert(res.ERR_MSG);
-         
+          if(this.rest.isCordova())
+          {
+            let toast = this.toastCtrl.create({
+              message: res.ERR_MSG,
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
+          }
+          else
+          {
+            alert(res.ERR_MSG);
+          }
           return;
         }
         this.rest.userInfo.SHIPMENT_NO = res.out_SHIPMENT_NO;
