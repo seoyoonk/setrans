@@ -40,15 +40,15 @@
       <p class="detail-data">{{item.CONSIGNEE_ADDR1}} {{item.CONSIGNEE_ADDR2}}</p>
     </ion-item>
     <ion-item>
-      <p class="detail-title">송하인 전화번호</p>
+      <p class="detail-title">수취인 전화번호1</p>
       <p class="detail-data">
-        <a href="tel:{{item.CONSIGNER_TEL1}}">{{item.CONSIGNER_TEL1}}</a>
+        <a href="tel:{{item.CONSIGNEE_TEL1}}">{{item.CONSIGNEE_TEL1}}</a>
       </p>
     </ion-item>
     <ion-item>
-      <p class="detail-title">수취인 전화번호</p>
+      <p class="detail-title">수취인 전화번호2</p>
       <p class="detail-data">
-        <a href="tel:{{item.CONSIGNEE_TEL1}}">{{item.CONSIGNEE_TEL1}}</a>
+        <a href="tel:{{item.CONSIGNEE_TEL2}}">{{item.CONSIGNEE_TEL2}}</a>
       </p>
     </ion-item>
     <ion-item>
@@ -67,7 +67,7 @@
     </ion-item>
     <ion-item>
       <ion-label stacked color="dark">부재시 취급방법</ion-label>
-      <ion-textarea>{{item.ABSENCE_MSG}}</ion-textarea>
+      <ion-textarea  [(ngModel)]="item.ABSENCE_MSG" >{{item.ABSENCE_MSG}}</ion-textarea>
     </ion-item>
     <ion-item>
     </ion-item>
@@ -76,8 +76,8 @@
 <ion-footer>
   <ion-toolbar>
     <div style="text-align:center">
-
-      <button ion-button [hidden]="item.DELIVERY_STATUS != '001'" style="width: 100%;" (click)="finishDelivery()">배송완료</button>
+      <button ion-button style="width: 40%;" (click)="saveDelivery()">저장</button>
+      <button ion-button [hidden]="item.DELIVERY_STATUS != '001'" style="width: 40%;" (click)="finishDelivery()">배송완료</button>
     </div>
   </ion-toolbar>
 </ion-footer>

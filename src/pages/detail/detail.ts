@@ -25,6 +25,11 @@ export class DetailPage {
   ionViewDidLoad() {
     this.rest.getDetail(this.navParams.data.DISPATCH_NOTE_NO).subscribe(
       (res) => {
+        if (res.ERR_MSG != null || res.error != null) {
+          alert(res.ERR_MSG  || res.error) ;
+          this.viewCtrl.dismiss();
+          return;
+        }
         this.item = res;
       },
       (err) => {
@@ -35,7 +40,20 @@ export class DetailPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
-
+  saveDelivery()
+  {
+    this.rest.showLoading("요청중입니다.");
+        this.rest.saveDelivery(this.item).subscribe(
+          (res) => {
+            this.rest.closeLoading();
+            alert("저장하였습니다.");
+            this.viewCtrl.dismiss();
+          },
+          (err) => {
+            this.rest.closeLoading();
+            alert(err);
+          });
+  }
   finishDelivery() {
     const modal = this.modalCtrl.create(SignaturePage);
     modal.onDidDismiss(
@@ -48,6 +66,7 @@ export class DetailPage {
           (res) => {
             this.rest.getIngList();
             this.rest.closeLoading();
+            alert("완료하였습니다.");
             this.viewCtrl.dismiss();
           },
           (err) => {

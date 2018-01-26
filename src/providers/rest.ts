@@ -184,4 +184,7 @@ export class RestProvider {
   finishDelivery(DISPATCH_NOTE_NO: string, sign: string, phone: string) {
     return this.post("/api/finish_delivery", { DISPATCH_NOTE_NO: DISPATCH_NOTE_NO, SIGN: sign, CONSIGNEE_TEL2: phone });
   }
+  saveDelivery(param) {
+    return this.post("/api/save_delivery", param);
+  }
 }
